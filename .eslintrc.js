@@ -39,7 +39,7 @@ module.exports = {
   ],
 
   rules: {
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-explicit-any': 'error',
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [
@@ -70,4 +70,4 @@ module.exports = {
     'no-nested-ternary': 'off',
     'import/prefer-default-export': 'off',
   },
-}
+};

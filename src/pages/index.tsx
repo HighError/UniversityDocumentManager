@@ -1,3 +1,19 @@
+import DocumentCard from '../components/DocumentCard';
+
 export default function Home() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>
+  return (
+    <div className="flex flex-col gap-5 p-5">
+      <div>Фільтри: тільки ваші, за роками. Сортування за алфавітом</div>
+      <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-3">
+        <DocumentCard />
+        <DocumentCard />
+        <DocumentCard />
+        <DocumentCard />
+        <DocumentCard />
+        <DocumentCard />
+        <DocumentCard />
+        <DocumentCard />
+      </div>
+    </div>
+  );
 }

@@ -1,0 +1,5 @@
+{
+  "title": "2022-2023",
+  "year": 2022, // start year, show delete warning if year + 5 > nowYear
+  "private": true // mb, can hide for non-admin user
+}
