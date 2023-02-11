@@ -5,10 +5,6 @@ function DocumentCard() {
   return (
     <div className="bg-gray-200 px-4 py-3 rounded-lg">
       <div className="text-2xl font-semibold mb-2">Title</div>
-      <div className="line-clamp-2 text-gray-400 mb-5">
-        Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle
-        Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle Subtitle
-      </div>
       <div className="flex flex-col gap-1 mb-3">
         <div className="flex flex-row gap-3 items-center">
           <MdCategory className="text-primary-200 text-lg" />
@@ -17,6 +13,10 @@ function DocumentCard() {
         <div className="flex flex-row gap-3 items-center">
           <AiOutlineUser className="text-primary-200 text-lg" />
           <div>Автор: User1 (ви)</div>
+        </div>
+        <div className="flex flex-row gap-3 items-center">
+          <AiOutlineUser className="text-primary-200 text-lg" />
+          <div>Статус заповненості: 0%</div>
         </div>
       </div>
       <div className="flex flex-row-reverse gap-3">
