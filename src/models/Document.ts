@@ -1,8 +1,9 @@
 import { model, Schema, Document as mongoDocument, models } from 'mongoose';
+import { IYear } from './Year';
 
 export interface IDocument extends mongoDocument {
   title: string;
-  subtitle: string;
+  year: IYear;
 }
 
 export const documentSchema: Schema = new Schema({

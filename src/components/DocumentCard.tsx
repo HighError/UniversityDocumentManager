@@ -1,14 +1,19 @@
 import { AiFillFileWord, AiFillFilePdf, AiOutlineUser } from 'react-icons/ai';
 import { MdCategory, MdModeEdit } from 'react-icons/md';
 
-function DocumentCard() {
+interface IProps {
+  title: string;
+  year: string;
+}
+
+function DocumentCard({ title, year }: IProps) {
   return (
     <div className="bg-gray-200 px-4 py-3 rounded-lg">
-      <div className="text-2xl font-semibold mb-2">Title</div>
+      <div className="text-2xl font-semibold mb-2">{title}</div>
       <div className="flex flex-col gap-1 mb-3">
         <div className="flex flex-row gap-3 items-center">
           <MdCategory className="text-primary-200 text-lg" />
-          <div>Навчальний рік: 2022-2023</div>
+          <div>Навчальний рік: {year}</div>
         </div>
         <div className="flex flex-row gap-3 items-center">
           <AiOutlineUser className="text-primary-200 text-lg" />
