@@ -1,9 +1,0 @@
-{
-  "username": "", // first name and second name
-  "email": "",
-  "password": "", // hash bcrypt
-  // defauilt or admin.
-  // Admin can create year and edit all documents.
-  // Default can edit only own documents and can view private year
-  "role": "default"
-}

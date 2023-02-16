@@ -16,7 +16,6 @@ export async function getServerSideProps() {
       props: { data, err: false },
     };
   } catch (err) {
-    console.log(err);
     return {
       props: { data: [], err: true },
     };
@@ -25,7 +24,7 @@ export async function getServerSideProps() {
 
 export default function Home({ data, err }: IProps) {
   if (err) {
-    return <div>Error</div>;
+    return <div>Error. Reload page!</div>;
   }
   return (
     <div className="flex flex-col gap-5">

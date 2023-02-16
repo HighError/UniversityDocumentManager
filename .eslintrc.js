@@ -8,6 +8,10 @@ module.exports = {
     },
   },
 
+  globals: {
+    globalThis: false,
+  },
+
   env: {
     browser: true,
     node: true,

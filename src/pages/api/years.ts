@@ -1,4 +1,5 @@
 import dbConnect from '@/lib/dbconnect';
+import Document from '@/models/Document';
 import Year from '@/models/Year';
 import { NextApiRequest, NextApiResponse } from 'next';
 
@@ -30,6 +31,7 @@ export default async function handler(
         return res.status(400).send('Missing params');
       }
       await Year.findByIdAndDelete(id);
+      await Document.deleteMany({ year: id });
       return res.status(200).send('');
     }
     return res.status(405).json('Only GET/POST/DELETE method allowed!');

@@ -2,45 +2,51 @@
 import { IYear } from '@/models/Year';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { FaTrash } from 'react-icons/fa';
 
-function Years() {
+interface IProps {
+  data: IYear[];
+  err: boolean;
+}
+
+export async function getServerSideProps() {
+  try {
+    const { data } = await axios.get('http://localhost:3000/api/years');
+    data.sort((a: IYear, b: IYear) => {
+      if (a.year > b.year) return -1;
+      if (a.year < b.year) return 1;
+      return 0;
+    });
+    return {
+      props: { data, err: false },
+    };
+  } catch (err) {
+    return {
+      props: { data: [], err: true },
+    };
+  }
+}
+
+function Years({ data, err }: IProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [data, setData] = useState<IYear[]>([]);
-
-  async function load() {
-    setIsLoading(true);
-    try {
-      const res = await axios.get('/api/years');
-      res.data.sort((a: IYear, b: IYear) => {
-        if (a.year > b.year) return -1;
-        if (a.year < b.year) return 1;
-        return 0;
-      });
-      setData(res.data);
-    } catch (err) {
-      toast.error('Помилка завантаження даних');
-    }
-    setIsLoading(false);
-  }
-
-  useEffect(() => {
-    load();
-  }, []);
 
   async function remove(id: string) {
     setIsLoading(true);
     try {
       await axios.delete('/api/years', { data: { id } });
-      await load();
-    } catch (err) {
+      router.reload();
+    } catch (error) {
       toast.error('Помилка видалення');
+      setIsLoading(false);
     }
-    setIsLoading(false);
+  }
+
+  if (err) {
+    return <div>Error. Reload page.</div>;
   }
   return (
     <>

@@ -1,5 +1,13 @@
-/* eslint-disable no-undef */
-import mongoose from 'mongoose';
+import mongoose, { Mongoose } from 'mongoose';
+
+require('../models/Document');
+require('../models/User');
+require('../models/Year');
+
+interface IMongoose {
+  conn: Mongoose | null;
+  promise: Promise<Mongoose> | null;
+}
 
 if (!process.env.MONGODB_URI) {
   throw new Error('Invalid/Missing environment variable: "MONGODB_URI"');
@@ -8,8 +16,7 @@ if (!process.env.MONGODB_URI) {
 const { MONGODB_URI } = process.env;
 
 const globalWithMongoose = global as typeof globalThis & {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  mongoose: any;
+  mongoose: IMongoose;
 };
 
 let cached = globalWithMongoose.mongoose;
@@ -29,7 +36,7 @@ async function dbConnect() {
       bufferCommands: false,
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts).then((mon) => mon);
+    cached.promise = mongoose.connect(MONGODB_URI, opts).then((db) => db);
   }
 
   cached.conn = await cached.promise;
