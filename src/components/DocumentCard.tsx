@@ -1,12 +1,16 @@
+import { UserContext } from '@/contexts/userContext';
+import { useContext } from 'react';
 import { AiFillFileWord, AiFillFilePdf, AiOutlineUser } from 'react-icons/ai';
 import { MdCategory, MdModeEdit } from 'react-icons/md';
 
 interface IProps {
   title: string;
   year: string;
+  user: string;
+  own: boolean;
 }
 
-function DocumentCard({ title, year }: IProps) {
+function DocumentCard({ title, year, user, own }: IProps) {
   return (
     <div className="bg-gray-200 px-4 py-3 rounded-lg">
       <div className="text-2xl font-semibold mb-2">{title}</div>
@@ -17,7 +21,9 @@ function DocumentCard({ title, year }: IProps) {
         </div>
         <div className="flex flex-row gap-3 items-center">
           <AiOutlineUser className="text-primary-200 text-lg" />
-          <div>Автор: User1 (ви)</div>
+          <div>
+            Автор: {user} {own && '(ви)'}
+          </div>
         </div>
         <div className="flex flex-row gap-3 items-center">
           <AiOutlineUser className="text-primary-200 text-lg" />

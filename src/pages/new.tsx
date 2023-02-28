@@ -2,12 +2,12 @@
 import { IYear } from '@/models/Year';
 import axios from 'axios';
 import { useFormik } from 'formik';
-import { useRouter } from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { mutate } from 'swr';
 
 function NewDocument() {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [years, setYears] = useState<IYear[]>([]);
 
@@ -26,7 +26,7 @@ function NewDocument() {
         setIsLoading(false);
       } catch (err) {
         toast.error('Невдалось завантажити дані!');
-        router.push('/');
+        Router.push('/');
       }
     }
 
@@ -46,7 +46,8 @@ function NewDocument() {
           yearID: values.year,
         });
         toast.success('Успішно створено');
-        router.push('/');
+        mutate('/api/documents');
+        Router.push('/');
       } catch (err) {
         toast.error('Помилка сервера');
       }
@@ -83,6 +84,7 @@ function NewDocument() {
             value={form.values.year}
             onChange={form.handleChange}
           >
+            <option value="">...</option>
             {years.map((e) => (
               <option key={e._id} value={e._id}>
                 {e.title}
@@ -95,7 +97,7 @@ function NewDocument() {
             className="bg-red hover:bg-orange disabled:bg-gray-200 px-3 py-2 rounded-lg"
             type="button"
             disabled={isLoading}
-            onClick={() => router.push('/')}
+            onClick={() => Router.push('/')}
           >
             Скасувати
           </button>

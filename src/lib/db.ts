@@ -1,8 +1,8 @@
 import mongoose, { Mongoose } from 'mongoose';
 
-require('../models/Document');
 require('../models/User');
-require('../models/Year');
+
+mongoose.set('strictQuery', true);
 
 interface IMongoose {
   conn: Mongoose | null;

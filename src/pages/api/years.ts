@@ -1,4 +1,4 @@
-import dbConnect from '@/lib/dbconnect';
+import dbConnect from '@/lib/db';
 import Document from '@/models/Document';
 import Year from '@/models/Year';
 import { NextApiRequest, NextApiResponse } from 'next';
