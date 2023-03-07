@@ -1,5 +1,6 @@
 import { UserContext } from '@/contexts/userContext';
 import axios from 'axios';
+import Router from 'next/router';
 import { ReactNode, useContext } from 'react';
 import { mutate } from 'swr';
 
@@ -21,7 +22,8 @@ function Layout({ children }: IProps) {
             className="bg-primary-100 hover:bg-primary-150 duration-300 px-3 py-2 rounded-lg"
             onClick={async () => {
               await axios.post('/api/auth/logout');
-              await mutate('/api/user', { data: null, error: null });
+              mutate('/api/user', { data: null, error: null });
+              Router.push('/login');
             }}
           >
             Logout

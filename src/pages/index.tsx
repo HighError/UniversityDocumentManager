@@ -9,6 +9,7 @@ import { UserContext } from '@/contexts/userContext';
 import OnlyForAuth from '@/components/routesControllers/OnlyForAuth';
 
 export default function Home() {
+  const now = new Date();
   const { user } = useContext(UserContext);
   const { data, error } = useSWR<IDocument[]>('/api/documents', fetcher);
   const [sortingData, setSortingData] = useState<IDocument[]>([]);
@@ -23,7 +24,6 @@ export default function Home() {
       temp = temp.filter((e) => e.user._id === user?._id);
     }
     if (sortSetup.onlyNowYear) {
-      const now = new Date();
       temp = temp.filter(
         (e) =>
           e.year.year ===
@@ -54,7 +54,8 @@ export default function Home() {
             />
           </label>
           <label className="flex flex-row gap-2">
-            Тільки цей рік:
+            Тільки цей рік (
+            {now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1}):
             <input
               type="checkbox"
               checked={sortSetup.onlyNowYear}
