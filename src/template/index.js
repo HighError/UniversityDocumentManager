@@ -17,32 +17,25 @@ const data = {
 
   professional_program: 'Інженерія програмного забезпечення',
 
-  hours: [
-    {
-      form: 'Денна',
-      course: '1',
-      semester: '1',
-      lectures: 30,
-      laboratory: 30,
-      irs: 4,
-      training: 4,
-      srs: 82,
-      all: 150, // lectures + laboratory + irs + training + srs
-      test: 1,
-    },
-    {
-      form: 'Заочна',
-      course: '1',
-      semester: '1,2',
-      lectures: 4,
-      laboratory: 2,
-      irs: '-',
-      training: '-',
-      srs: 144,
-      all: 150, // lectures + laboratory + irs + training + srs
-      test: 2,
-    },
-  ],
+  hours_day_course: 1,
+  hours_day_semester: '1, 2',
+  hours_day_lectures: 30,
+  hours_day_laboratory: 30,
+  hours_day_irs: 4,
+  hours_day_training: 4,
+  hours_day_srs: 82,
+  hours_day_all: 150,
+  hours_day_test: 1,
+
+  hours_ext_course: 1,
+  hours_ext_semester: '1, 2',
+  hours_ext_lectures: 30,
+  hours_ext_laboratory: 30,
+  hours_ext_irs: 4,
+  hours_ext_training: 4,
+  hours_ext_srs: 82,
+  hours_ext_all: 150,
+  hours_ext_test: 1,
 
   program_protocol: 9,
   program_protocol_date: '26.05.2021',
