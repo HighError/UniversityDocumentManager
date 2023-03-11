@@ -24,8 +24,9 @@ const data = {
   hours_day_irs: 4,
   hours_day_training: 4,
   hours_day_srs: 82,
-  hours_day_all: 150,
   hours_day_test: 1,
+
+  hours_all: 150,
 
   hours_ext_course: 1,
   hours_ext_semester: '1, 2',
@@ -34,11 +35,10 @@ const data = {
   hours_ext_irs: 4,
   hours_ext_training: 4,
   hours_ext_srs: 82,
-  hours_ext_all: 150,
   hours_ext_test: 1,
 
-  program_protocol: 9,
-  program_protocol_date: '26.05.2021',
+  program_protocol_1: 9,
+  program_protocol_date_1: '26.05.2021',
 
   program_protocol_2: 1,
   program_protocol_date_2: '20.08.2021',

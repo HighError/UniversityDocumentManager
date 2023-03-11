@@ -1,7 +1,29 @@
 import TextArea from '@/components/TextArea';
+import axios from 'axios';
 import { Field, Form, Formik } from 'formik';
+import { NextPageContext } from 'next';
+import Router from 'next/router';
+import { useEffect } from 'react';
 
-const Edit = () => {
+export async function getServerSideProps(context: any) {
+  try {
+    const { data } = await axios.get(`/api/doc/${context.params.id}`);
+    return {
+      props: { data },
+    };
+  } catch (err) {
+    return {
+      props: { data: null },
+    };
+  }
+}
+
+const Edit = ({ data }: { data: any }) => {
+  useEffect(() => {
+    if (!data) {
+      Router.push('/');
+    }
+  }, [data]);
   return (
     <div>
       <Formik initialValues={{}} onSubmit={() => {}}>
@@ -121,6 +143,56 @@ const Edit = () => {
                 />
               </div>
             </div>
+            <div className="flex flex-row gap-5 items-center justify-between w-full">
+              <TextArea title="Обов'язкова?" id="status" type="checkbox" />
+              <TextArea title="Мова" id="language" />
+            </div>
+            <div className="flex flex-row gap-5 items-center justify-between w-full">
+              <TextArea title="Кількість кредитів" id="credits" type="number" />
+              <TextArea
+                title="Кількість залікових модулів"
+                id="credit_modules"
+                type="number"
+              />
+              <TextArea
+                title="Кількість змістових модулів"
+                id="content_modules"
+                type="number"
+              />
+            </div>
+            <div className="flex flex-row gap-5 items-center justify-between w-full">
+              <TextArea
+                title="Тижневих годин"
+                id="weekly_hours"
+                type="number"
+              />
+              <TextArea
+                title="з них аудиторних"
+                id="classroom_hours"
+                type="number"
+              />
+            </div>
+            <TextArea title="Метою вивчення дисципліни є" id="goal" textarea />
+            <TextArea
+              title="Завданням вивчення дисципліни є"
+              id="task"
+              textarea
+            />
+            <TextArea
+              title="Найменування та опис компетентностей (розділити знаком ';')"
+              id="competencies"
+              textarea
+            />
+            <TextArea
+              title="Передумови для вивчення дисципліни"
+              id="prerequisites"
+              textarea
+            />
+            <TextArea
+              title="Результати навчання (розділити знаком ';')"
+              id="result"
+              textarea
+            />
           </Form>
         </div>
       </Formik>
