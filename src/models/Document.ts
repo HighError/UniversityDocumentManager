@@ -6,6 +6,7 @@ export interface IDocument extends mongoDocument {
   title: string;
   year: IYear;
   user: IUser;
+  data: any;
 }
 
 export const documentSchema: Schema = new Schema({
@@ -22,6 +23,11 @@ export const documentSchema: Schema = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
     required: true,
+  },
+  data: {
+    type: Schema.Types.Mixed,
+    required: true,
+    default: {},
   },
 });
 

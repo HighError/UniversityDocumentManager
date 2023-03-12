@@ -1,32 +1,96 @@
 import TextArea from '@/components/TextArea';
 import axios from 'axios';
-import { Field, Form, Formik } from 'formik';
-import { NextPageContext } from 'next';
-import Router from 'next/router';
-import { useEffect } from 'react';
+import { Form, Formik } from 'formik';
+import Router, { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'react-hot-toast';
+const initialData = {
+  discipline: '',
+  branch_number: 0,
+  branch: '',
+  profession_number: 0,
+  profession: '',
+  professional_program: '',
 
-export async function getServerSideProps(context: any) {
-  try {
-    const { data } = await axios.get(`/api/doc/${context.params.id}`);
-    return {
-      props: { data },
-    };
-  } catch (err) {
-    return {
-      props: { data: null },
-    };
-  }
-}
+  hours_day_course: 0,
+  hours_day_semester: '',
+  hours_day_lectures: 0,
+  hours_day_laboratory: 0,
+  hours_day_irs: 0,
+  hours_day_training: 0,
+  hours_day_srs: 0,
+  hours_day_test: 0,
 
-const Edit = ({ data }: { data: any }) => {
-  useEffect(() => {
-    if (!data) {
+  hours_ext_course: 0,
+  hours_ext_semester: '',
+  hours_ext_lectures: 0,
+  hours_ext_laboratory: 0,
+  hours_ext_irs: 0,
+  hours_ext_training: 0,
+  hours_ext_srs: 0,
+  hours_ext_test: 0,
+
+  program_protocol_1: 0,
+  program_protocol_date_1: '',
+
+  program_protocol_2: 0,
+  program_protocol_date_2: '',
+
+  program_protocol_3: 0,
+  program_protocol_date_3: '',
+
+  status: true,
+  language: '',
+
+  credits: 0,
+  credit_modules: 0,
+  content_modules: 0,
+
+  weekly_hours: 0,
+  classroom_hours: 0,
+
+  goal: '',
+  task: '',
+  competencies: '',
+  prerequisites: '',
+  result: '',
+};
+
+const Edit = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+  const [data, setData] = useState({});
+
+  const loadData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const res = await axios.get(`/api/doc/${router.query['id']}`);
+      setData(res.data.data ?? {});
+      setIsLoading(false);
+    } catch (err) {
+      toast.error('Помилка завантаження данних');
       Router.push('/');
     }
-  }, [data]);
+  }, [router.query]);
+
+  useEffect(() => {
+    loadData();
+  }, [loadData]);
+
   return (
     <div>
-      <Formik initialValues={{}} onSubmit={() => {}}>
+      <Formik
+        initialValues={{ ...initialData, ...data }}
+        enableReinitialize={true}
+        onSubmit={async (value) => {
+          try {
+            axios.post(`/api/doc/${router.query['id']}`, { data: value });
+            toast.success('Успішно збережено');
+          } catch (err) {
+            toast.error('Помилка збереження');
+          }
+        }}
+      >
         <div className="flex flex-row items-center justify-center">
           <Form className="flex flex-col gap-3 max-w-5xl items-center">
             <TextArea title="Дисципліна" id="discipline" />
@@ -193,6 +257,14 @@ const Edit = ({ data }: { data: any }) => {
               id="result"
               textarea
             />
+            <div className="mt-12">
+              <button
+                type="submit"
+                className="px-3 py-3 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+              >
+                Зберегти
+              </button>
+            </div>
           </Form>
         </div>
       </Formik>

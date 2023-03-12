@@ -1,16 +1,36 @@
 import { UserContext } from '@/contexts/userContext';
+import GenerateDocx from '@/lib/generate';
+import axios from 'axios';
+import Router from 'next/router';
 import { useContext } from 'react';
 import { AiFillFileWord, AiFillFilePdf, AiOutlineUser } from 'react-icons/ai';
 import { MdCategory, MdModeEdit } from 'react-icons/md';
 
 interface IProps {
+  id: string;
   title: string;
   year: string;
   user: string;
   own: boolean;
 }
 
-function DocumentCard({ title, year, user, own }: IProps) {
+function DocumentCard({ id, title, year, user, own }: IProps) {
+  function downloadDocx() {
+    axios({
+      url: `/api/download/docx/${id}`,
+      method: 'GET',
+      responseType: 'blob',
+    }).then((response) => {
+      const href = URL.createObjectURL(response.data);
+      const link = document.createElement('a');
+      link.href = href;
+      link.setAttribute('download', `${title}.docx`);
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(href);
+    });
+  }
   return (
     <div className="bg-gray-200 px-4 py-3 rounded-lg">
       <div className="text-2xl font-semibold mb-2">{title}</div>
@@ -34,12 +54,14 @@ function DocumentCard({ title, year, user, own }: IProps) {
         <button
           className="bg-primary-100 hover:bg-primary-150 duration-300 px-3 py-2 rounded-md text-lg"
           type="button"
+          onClick={() => Router.push(`/edit/${id}`)}
         >
           <MdModeEdit />
         </button>
         <button
           className="bg-primary-100 hover:bg-primary-150 duration-300 px-3 py-2 rounded-md text-lg"
           type="button"
+          onClick={() => downloadDocx()}
         >
           <AiFillFileWord />
         </button>

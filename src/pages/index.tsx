@@ -19,18 +19,20 @@ export default function Home() {
   });
 
   const updateSort = useCallback(() => {
-    let temp = [...(data ?? [])];
-    if (sortSetup.onlyMy) {
-      temp = temp.filter((e) => e.user._id === user?._id);
+    if (data && data.length >= 1) {
+      let temp = [...data];
+      if (sortSetup.onlyMy) {
+        temp = temp.filter((e) => e.user._id === user?._id);
+      }
+      if (sortSetup.onlyNowYear) {
+        temp = temp.filter(
+          (e) =>
+            e.year.year ===
+            (now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1)
+        );
+      }
+      setSortingData(temp);
     }
-    if (sortSetup.onlyNowYear) {
-      temp = temp.filter(
-        (e) =>
-          e.year.year ===
-          (now.getMonth() >= 8 ? now.getFullYear() : now.getFullYear() - 1)
-      );
-    }
-    setSortingData(temp);
   }, [data, sortSetup, user?._id]);
 
   useEffect(() => {
@@ -71,6 +73,7 @@ export default function Home() {
           {sortingData.map((e) => (
             <DocumentCard
               key={e._id}
+              id={e._id}
               title={e.title}
               year={e.year.title}
               user={e.user.username}
