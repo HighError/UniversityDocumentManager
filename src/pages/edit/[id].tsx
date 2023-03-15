@@ -1,9 +1,16 @@
 import TextArea from '@/components/TextArea';
 import axios from 'axios';
-import { Form, Formik } from 'formik';
+import { FieldArray, Form, Formik } from 'formik';
 import Router, { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
+
+interface ITopics {
+  title: string;
+  desc: string;
+  lit: string;
+}
+
 const initialData = {
   discipline: '',
   branch_number: 0,
@@ -54,6 +61,8 @@ const initialData = {
   competencies: '',
   prerequisites: '',
   result: '',
+
+  topics: [],
 };
 
 const Edit = () => {
@@ -86,6 +95,7 @@ const Edit = () => {
           try {
             axios.post(`/api/doc/${router.query['id']}`, { data: value });
             toast.success('Успішно збережено');
+            Router.push('/');
           } catch (err) {
             toast.error('Помилка збереження');
           }
@@ -257,6 +267,60 @@ const Edit = () => {
               id="result"
               textarea
             />
+            <div>
+              <h2>Теми</h2>
+              <FieldArray name="topics">
+                {(fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { topics } = values;
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {topics.map((topic: ITopics, index: number) => (
+                        <div className="flex flex-row gap-3" key={index}>
+                          <TextArea
+                            title="Назва"
+                            id={`topics[${index}].title`}
+                          />
+                          <TextArea
+                            title="Опис"
+                            id={`topics[${index}].description`}
+                            textarea
+                          />
+                          <TextArea
+                            title="Література"
+                            id={`topics[${index}].lit`}
+                          />
+                          <div className="flex flex-row h-min gap-3 ">
+                            <button
+                              type="button"
+                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                              onClick={() => remove(index)}
+                            >
+                              -
+                            </button>
+                            <button
+                              type="button"
+                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                              onClick={() => push('')}
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                        onClick={() => push('')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  );
+                }}
+              </FieldArray>
+            </div>
             <div className="mt-12">
               <button
                 type="submit"
