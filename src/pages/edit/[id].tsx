@@ -267,7 +267,7 @@ const Edit = () => {
               id="result"
               textarea
             />
-            <div>
+            <div className="w-full">
               <h2>Теми</h2>
               <FieldArray name="topics">
                 {(fieldArrayProps) => {
@@ -277,7 +277,10 @@ const Edit = () => {
                   return (
                     <div className="flex flex-col gap-2">
                       {topics.map((topic: ITopics, index: number) => (
-                        <div className="flex flex-row gap-3" key={index}>
+                        <div
+                          className="flex flex-col gap-3 rounded-lg my-1 border-4 p-3 border-gray-300"
+                          key={index}
+                        >
                           <TextArea
                             title="Назва"
                             id={`topics[${index}].title`}
@@ -291,21 +294,49 @@ const Edit = () => {
                             title="Література"
                             id={`topics[${index}].lit`}
                           />
-                          <div className="flex flex-row h-min gap-3 ">
-                            <button
-                              type="button"
-                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
-                              onClick={() => remove(index)}
-                            >
-                              -
-                            </button>
-                            <button
-                              type="button"
-                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
-                              onClick={() => push('')}
-                            >
-                              +
-                            </button>
+                          <div className="flex flex-row gap-2">
+                            <TextArea
+                              title="Лекції"
+                              id={`topics[${index}].lec`}
+                              type="nubmer"
+                            />
+                            <TextArea
+                              title="Практичні заняття"
+                              id={`topics[${index}].prac`}
+                              type="nubmer"
+                            />
+                            <TextArea
+                              title="Самостійна робота"
+                              id={`topics[${index}].srs`}
+                              type="nubmer"
+                            />
+                            <TextArea
+                              title="Індивідуальна робота"
+                              id={`topics[${index}].individual`}
+                              type="nubmer"
+                            />
+                          </div>
+                          <div className="flex flex-row gap-2">
+                            <TextArea
+                              title="Контрольні заходи"
+                              id={`topics[${index}].control`}
+                            />
+                            <div className="flex flex-row h-min gap-3 ">
+                              <button
+                                type="button"
+                                className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                                onClick={() => remove(index)}
+                              >
+                                -
+                              </button>
+                              <button
+                                type="button"
+                                className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                                onClick={() => push('')}
+                              >
+                                +
+                              </button>
+                            </div>
                           </div>
                         </div>
                       ))}
