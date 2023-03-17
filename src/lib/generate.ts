@@ -39,6 +39,40 @@ export default async function GenerateDocx(data: any) {
     .map((e: string) => {
       return { title: e };
     });
+
+  data.lec_day_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.lec_day ? acc + +obj.lec_day : acc;
+  }, 0);
+
+  data.prac_day_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.prac_day ? acc + +obj.prac_day : acc;
+  }, 0);
+
+  data.srs_day_sum =
+    data.topics.reduce((acc: number, obj: any) => {
+      return obj.srs_day ? acc + +obj.srs_day : acc;
+    }, 0) + data.hours_day_training;
+
+  data.individual_day_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.individual_day ? acc + +obj.individual_day : acc;
+  }, 0);
+
+  data.lec_ext_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.lec_ext ? acc + +obj.lec_ext : acc;
+  }, 0);
+
+  data.prac_ext_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.prac_ext ? acc + +obj.prac_ext : acc;
+  }, 0);
+
+  data.srs_ext_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.srs_ext ? acc + +obj.srs_ext : acc;
+  }, 0);
+
+  data.individual_ext_sum = data.topics.reduce((acc: number, obj: any) => {
+    return obj.individual_ext ? acc + +obj.individual_ext : acc;
+  }, 0);
+
   const docxFile = path.join(process.cwd(), 'src/lib/template.docx');
   const templateFile = await fs.readFile(docxFile);
   const handler = new TemplateHandler();

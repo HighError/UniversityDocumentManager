@@ -276,7 +276,7 @@ const Edit = () => {
                   const { topics } = values;
                   return (
                     <div className="flex flex-col gap-2">
-                      {topics.map((topic: ITopics, index: number) => (
+                      {(topics ?? []).map((topic: ITopics, index: number) => (
                         <div
                           className="flex flex-col gap-3 rounded-lg my-1 border-4 p-3 border-gray-300"
                           key={index}
@@ -294,32 +294,60 @@ const Edit = () => {
                             title="Література"
                             id={`topics[${index}].lit`}
                           />
-                          <div className="flex flex-row gap-2">
+                          <div className="text-lg mt-3">Денна:</div>
+                          <div className="flex flex-row gap-2 items-center">
                             <TextArea
                               title="Лекції"
-                              id={`topics[${index}].lec`}
+                              id={`topics[${index}].lec_day`}
                               type="nubmer"
                             />
                             <TextArea
                               title="Практичні заняття"
-                              id={`topics[${index}].prac`}
+                              id={`topics[${index}].prac_day`}
                               type="nubmer"
                             />
                             <TextArea
                               title="Самостійна робота"
-                              id={`topics[${index}].srs`}
+                              id={`topics[${index}].srs_day`}
                               type="nubmer"
                             />
                             <TextArea
                               title="Індивідуальна робота"
-                              id={`topics[${index}].individual`}
+                              id={`topics[${index}].individual_day`}
+                              type="nubmer"
+                            />
+                          </div>
+                          <TextArea
+                            title="Контрольні заходи"
+                            id={`topics[${index}].control_day`}
+                          />
+                          <div className="text-lg mt-3">Заочна:</div>
+                          <div className="flex flex-row gap-2 items-center">
+                            <TextArea
+                              title="Лекції"
+                              id={`topics[${index}].lec_ext`}
+                              type="nubmer"
+                            />
+                            <TextArea
+                              title="Практичні заняття"
+                              id={`topics[${index}].prac_ext`}
+                              type="nubmer"
+                            />
+                            <TextArea
+                              title="Самостійна робота"
+                              id={`topics[${index}].srs_ext`}
+                              type="nubmer"
+                            />
+                            <TextArea
+                              title="Індивідуальна робота"
+                              id={`topics[${index}].individual_ext`}
                               type="nubmer"
                             />
                           </div>
                           <div className="flex flex-row gap-2">
                             <TextArea
                               title="Контрольні заходи"
-                              id={`topics[${index}].control`}
+                              id={`topics[${index}].control_ext`}
                             />
                             <div className="flex flex-row h-min gap-3 ">
                               <button
@@ -329,14 +357,55 @@ const Edit = () => {
                               >
                                 -
                               </button>
-                              <button
-                                type="button"
-                                className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
-                                onClick={() => push('')}
-                              >
-                                +
-                              </button>
                             </div>
+                          </div>
+                        </div>
+                      ))}
+
+                      <button
+                        type="button"
+                        className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                        onClick={() => push('')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  );
+                }}
+              </FieldArray>
+            </div>
+            <div className="w-full">
+              <h2>Лабораторні</h2>
+              <FieldArray name="labs">
+                {(fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { labs } = values;
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {(labs ?? []).map((topic: ITopics, index: number) => (
+                        <div
+                          className="flex flex-col gap-3 rounded-lg my-1 border-4 p-3 border-gray-300"
+                          key={index}
+                        >
+                          <TextArea title="Тема" id={`labs[${index}].title`} />
+                          <TextArea
+                            title="Мета"
+                            id={`labs[${index}].goal`}
+                            textarea
+                          />
+                          <div className="flex flex-row h-min gap-3 ">
+                            <TextArea
+                              title="Література"
+                              id={`labs[${index}].lit`}
+                            />
+                            <button
+                              type="button"
+                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                              onClick={() => remove(index)}
+                            >
+                              -
+                            </button>
                           </div>
                         </div>
                       ))}
