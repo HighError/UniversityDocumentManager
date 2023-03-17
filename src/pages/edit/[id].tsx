@@ -63,6 +63,8 @@ const initialData = {
   result: '',
 
   topics: [],
+  labs: [],
+  kpis: [],
 };
 
 const Edit = () => {
@@ -407,6 +409,45 @@ const Edit = () => {
                               -
                             </button>
                           </div>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                        onClick={() => push('')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  );
+                }}
+              </FieldArray>
+            </div>
+            <div className="w-full">
+              <h2>Варіанти КПІЗів</h2>
+              <FieldArray name="kpis">
+                {(fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { kpis } = values;
+                  return (
+                    <div className="flex flex-col gap-1">
+                      {(kpis ?? []).map((topic: ITopics, index: number) => (
+                        <div
+                          className="rounded-lg border-gray-300 flex flex-row gap-1"
+                          key={index}
+                        >
+                          <TextArea
+                            title={`${index + 1}`}
+                            id={`kpis[${index}].title`}
+                          />
+                          <button
+                            type="button"
+                            className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                            onClick={() => remove(index)}
+                          >
+                            -
+                          </button>
                         </div>
                       ))}
                       <button

@@ -16,7 +16,7 @@ const TextArea = ({ title, id, textarea, type }: IProps) => {
       >
         {title}:
         <Field
-          className="bg-gray-100 border border-gray-400 rounded-lg px-3 py-2 w-2/3"
+          className="bg-gray-100 border border-gray-400 rounded-lg px-3 py-2 w-2/3 flex-1"
           name={id}
           id={id}
           type={type}
