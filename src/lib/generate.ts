@@ -2,7 +2,9 @@ import { promises as fs } from 'fs';
 import { TemplateHandler } from 'easy-template-x';
 import path from 'path';
 
-export default async function GenerateDocx(data: any) {
+export default async function GenerateDocx(data: any, year: number) {
+  data.status = data.status ? "обов'язкова" : 'вибіркова';
+  data.year = year;
   data.hours_day_all =
     data.hours_day_lectures +
     data.hours_day_laboratory +

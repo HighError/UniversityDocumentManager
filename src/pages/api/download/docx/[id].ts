@@ -1,4 +1,4 @@
-import Document from '@/models/Document';
+import Document, { IDocument } from '@/models/Document';
 import mongoose, { isValidObjectId } from 'mongoose';
 import Year, { IYear } from '@/models/Year';
 import { NextApiRequest, NextApiResponse } from 'next';
@@ -24,11 +24,11 @@ export default async function handler(
     }
     const requestMethod = req.method;
     if (requestMethod === 'GET') {
-      const document = await Document.findById(id);
+      const document = await Document.findById(id).populate('year');
       if (!document) {
         return res.status(404).end();
       }
-      const blob = await GenerateDocx(document.data);
+      const blob = await GenerateDocx(document.data, document.year.year);
       res.setHeader(
         'Content-Type',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document'

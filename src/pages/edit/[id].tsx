@@ -13,6 +13,7 @@ interface ITopics {
 
 const initialData = {
   discipline: '',
+  degree: '',
   branch_number: 0,
   branch: '',
   profession_number: 0,
@@ -62,9 +63,20 @@ const initialData = {
   prerequisites: '',
   result: '',
 
+  mod_1: '',
+  mod_2: '',
+  mod_3: '',
+
+  training_topic: '',
+  training_task: '',
+  training_lit: '',
+
   topics: [],
   labs: [],
   kpis: [],
+  srs_variants: [],
+  training: [],
+  instruments: [],
 };
 
 const Edit = () => {
@@ -106,6 +118,7 @@ const Edit = () => {
         <div className="flex flex-row items-center justify-center">
           <Form className="flex flex-col gap-3 max-w-5xl items-center">
             <TextArea title="Дисципліна" id="discipline" />
+            <TextArea title="Ступінь визої освіти" id="degree" />
             <div className="flex flex-row gap-5 items-center justify-between w-full">
               <TextArea
                 title="Галузь знань (номер)"
@@ -566,6 +579,51 @@ const Edit = () => {
               <TextArea title="Заліковий модуль 2" id={`mod_2`} />
               <TextArea title="Заліковий модуль 3" id={`mod_3`} />
               <div className="flex flex-row gap-2"></div>
+            </div>
+            <div className="w-full">
+              <h2>Інструменти, обладнання та програмне забезпечення</h2>
+              <FieldArray name="instruments">
+                {(fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { instruments } = values;
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {(instruments ?? []).map((data: any, index: number) => (
+                        <div
+                          className="flex flex-col gap-3 rounded-lg"
+                          key={index}
+                        >
+                          <div className="flex flex-row h-min gap-3 ">
+                            <TextArea
+                              title="Найменування"
+                              id={`instruments[${index}].title`}
+                            />
+                            <TextArea
+                              title="теми"
+                              id={`instruments[${index}].topic`}
+                            />
+                            <button
+                              type="button"
+                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                              onClick={() => remove(index)}
+                            >
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                        onClick={() => push('')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  );
+                }}
+              </FieldArray>
             </div>
             <div className="mt-12">
               <button
