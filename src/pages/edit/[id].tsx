@@ -560,6 +560,13 @@ const Edit = () => {
                 }}
               </FieldArray>
             </div>
+            <div className="w-full">
+              <h2>Модулі</h2>
+              <TextArea title="Заліковий модуль 1" id={`mod_1`} />
+              <TextArea title="Заліковий модуль 2" id={`mod_2`} />
+              <TextArea title="Заліковий модуль 3" id={`mod_3`} />
+              <div className="flex flex-row gap-2"></div>
+            </div>
             <div className="mt-12">
               <button
                 type="submit"
