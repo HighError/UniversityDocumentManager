@@ -278,7 +278,7 @@ const Edit = () => {
                   const { topics } = values;
                   return (
                     <div className="flex flex-col gap-2">
-                      {(topics ?? []).map((topic: ITopics, index: number) => (
+                      {(topics ?? []).map((data: any, index: number) => (
                         <div
                           className="flex flex-col gap-3 rounded-lg my-1 border-4 p-3 border-gray-300"
                           key={index}
@@ -385,7 +385,7 @@ const Edit = () => {
                   const { labs } = values;
                   return (
                     <div className="flex flex-col gap-2">
-                      {(labs ?? []).map((topic: ITopics, index: number) => (
+                      {(labs ?? []).map((data: any, index: number) => (
                         <div
                           className="flex flex-col gap-3 rounded-lg my-1 border-4 p-3 border-gray-300"
                           key={index}
@@ -432,7 +432,7 @@ const Edit = () => {
                   const { kpis } = values;
                   return (
                     <div className="flex flex-col gap-1">
-                      {(kpis ?? []).map((topic: ITopics, index: number) => (
+                      {(kpis ?? []).map((data: any, index: number) => (
                         <div
                           className="rounded-lg border-gray-300 flex flex-row gap-1"
                           key={index}
@@ -448,6 +448,57 @@ const Edit = () => {
                           >
                             -
                           </button>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                        onClick={() => push('')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  );
+                }}
+              </FieldArray>
+            </div>
+            <div className="w-full">
+              <h2>Самостійні</h2>
+              <FieldArray name="srs_variants">
+                {(fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { srs_variants } = values;
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {(srs_variants ?? []).map((data: any, index: number) => (
+                        <div
+                          className="flex flex-col gap-3 rounded-lg my-1 border-4 p-3 border-gray-300"
+                          key={index}
+                        >
+                          <TextArea
+                            title="Тематика"
+                            id={`srs_variants[${index}].title`}
+                          />
+                          <div className="flex flex-row h-min gap-3 ">
+                            <TextArea
+                              title="К-сть годин (денна)"
+                              id={`srs_variants[${index}].day`}
+                              type="number"
+                            />
+                            <TextArea
+                              title="К-сть годин (заочна)"
+                              id={`srs_variants[${index}].ext`}
+                              type="number"
+                            />
+                            <button
+                              type="button"
+                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                              onClick={() => remove(index)}
+                            >
+                              -
+                            </button>
+                          </div>
                         </div>
                       ))}
                       <button
