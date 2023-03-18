@@ -513,6 +513,53 @@ const Edit = () => {
                 }}
               </FieldArray>
             </div>
+            <div className="w-full">
+              <h2>Тренінги</h2>
+              <div className="flex flex-col gap-1">
+                <TextArea title="Тематика" id={`training_topic`} />
+                <TextArea title="Завдання" id={`training_task`} />
+                <TextArea title="Література" id={`training_lit`} />
+              </div>
+              <h3 className="text-lg my-2">Порядок проведення тренінгу:</h3>
+              <FieldArray name="training">
+                {(fieldArrayProps) => {
+                  const { push, remove, form } = fieldArrayProps;
+                  const { values } = form;
+                  const { training } = values;
+                  return (
+                    <div className="flex flex-col gap-2">
+                      {(training ?? []).map((data: any, index: number) => (
+                        <div
+                          className="flex flex-col gap-3 rounded-lg"
+                          key={index}
+                        >
+                          <div className="flex flex-row h-min gap-3 ">
+                            <TextArea
+                              title={`${index + 1}`}
+                              id={`training[${index}].title`}
+                            />
+                            <button
+                              type="button"
+                              className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                              onClick={() => remove(index)}
+                            >
+                              -
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                      <button
+                        type="button"
+                        className="px-3 py-2 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"
+                        onClick={() => push('')}
+                      >
+                        +
+                      </button>
+                    </div>
+                  );
+                }}
+              </FieldArray>
+            </div>
             <div className="mt-12">
               <button
                 type="submit"
