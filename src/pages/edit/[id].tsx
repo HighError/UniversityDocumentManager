@@ -5,12 +5,6 @@ import Router, { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'react-hot-toast';
 
-interface ITopics {
-  title: string;
-  desc: string;
-  lit: string;
-}
-
 const initialData = {
   discipline: '',
   degree: '',
@@ -625,7 +619,16 @@ const Edit = () => {
                 }}
               </FieldArray>
             </div>
-            <div className="mt-12">
+            <div className="mt-12 flex flex-row items-center justify-around gap-10">
+              <button
+                type="button"
+                className="px-3 py-3 bg-[#b53529] hover:bg-[#e1574c] duration-300 disabled:bg-gray-200 rounded-lg"
+                onClick={() => {
+                  Router.push('/');
+                }}
+              >
+                Скасувати
+              </button>
               <button
                 type="submit"
                 className="px-3 py-3 bg-primary-100 hover:bg-primary-200 duration-300 disabled:bg-gray-200 rounded-lg"

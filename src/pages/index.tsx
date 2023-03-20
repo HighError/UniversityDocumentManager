@@ -17,8 +17,10 @@ export default function Home() {
     onlyMy: false,
     onlyNowYear: true,
   });
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const updateSort = useCallback(() => {
+    setIsLoading(true);
     if (data && data.length >= 1) {
       let temp = [...data];
       if (sortSetup.onlyMy) {
@@ -32,6 +34,7 @@ export default function Home() {
         );
       }
       setSortingData(temp);
+      setIsLoading(false);
     }
   }, [data, sortSetup, user?._id]);
 
@@ -69,7 +72,7 @@ export default function Home() {
           </label>
         </div>
         <div className="grid grid-cols-1 tablet:grid-cols-2 laptop:grid-cols-3 gap-3">
-          <NewDocumentCard />
+          <NewDocumentCard isLoading={isLoading} />
           {sortingData.map((e) => (
             <DocumentCard
               key={e._id}
@@ -78,6 +81,8 @@ export default function Home() {
               year={e.year.title}
               user={e.user.username}
               own={e.user._id === user?._id}
+              isLoading={isLoading}
+              setIsLoading={setIsLoading}
             />
           ))}
         </div>
