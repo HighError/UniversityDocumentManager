@@ -10,6 +10,7 @@ interface IUserContext {
   user?: {
     _id: string;
     username: string;
+    isAdmin: boolean;
   };
   error?: AxiosError;
   isLoading: boolean;

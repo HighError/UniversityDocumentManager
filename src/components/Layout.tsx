@@ -1,5 +1,6 @@
 import { UserContext } from '@/contexts/userContext';
 import axios from 'axios';
+import Link from 'next/link';
 import Router from 'next/router';
 import { ReactNode, useContext } from 'react';
 import { mutate } from 'swr';
@@ -17,7 +18,14 @@ function Layout({ children }: IProps) {
           <span className="self-center text-xl font-semibold whitespace-nowrap">
             UDM
           </span>
-          <span>{JSON.stringify(user ?? { user: null })}</span>
+          <div className={`flex flex-row gap-3 ${!user?.isAdmin && 'hidden'}`}>
+            <Link className="hover:text-primary-150 duration-300" href="/">
+              Документи
+            </Link>
+            <Link className="hover:text-primary-150 duration-300" href="/years">
+              Роки
+            </Link>
+          </div>
           <button
             className="bg-primary-100 hover:bg-primary-150 duration-300 px-3 py-2 rounded-lg"
             onClick={async () => {

@@ -3,6 +3,7 @@ import mongoose, { Document, model, models } from 'mongoose';
 export interface IUser extends Document {
   username: string;
   password: string;
+  isAdmin: boolean;
 }
 
 const userSchema = new mongoose.Schema({
@@ -15,6 +16,11 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     select: false,
+  },
+  isAdmin: {
+    type: Boolean,
+    required: true,
+    default: false,
   },
 });
 

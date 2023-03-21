@@ -1,3 +1,4 @@
+import OnlyForAuth from '@/components/routesControllers/OnlyForAuth';
 import TextArea from '@/components/TextArea';
 import axios from 'axios';
 import { FieldArray, Form, Formik } from 'formik';
@@ -95,7 +96,7 @@ const Edit = () => {
   }, [loadData]);
 
   return (
-    <div>
+    <OnlyForAuth>
       <Formik
         initialValues={{ ...initialData, ...data }}
         enableReinitialize={true}
@@ -639,7 +640,7 @@ const Edit = () => {
           </Form>
         </div>
       </Formik>
-    </div>
+    </OnlyForAuth>
   );
 };
 

@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import OnlyForAdmin from '@/components/routesControllers/OnlyForAdmin';
 import { IYear } from '@/models/Year';
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -14,7 +15,9 @@ interface IProps {
 
 export async function getServerSideProps() {
   try {
-    const { data } = await axios.get('http://localhost:3000/api/years');
+    const { data } = await axios.get('http://localhost:3000/api/years', {
+      withCredentials: true,
+    });
     data.sort((a: IYear, b: IYear) => {
       if (a.year > b.year) return -1;
       if (a.year < b.year) return 1;
@@ -49,7 +52,7 @@ function Years({ data, err }: IProps) {
     return <div>Error. Reload page.</div>;
   }
   return (
-    <>
+    <OnlyForAdmin>
       <div className="relative overflow-x-auto rounded-lg select-none">
         <table className="w-full text-sm text-left">
           <thead className="text-xs uppercase bg-gray-200">
@@ -95,7 +98,7 @@ function Years({ data, err }: IProps) {
       >
         <AiOutlinePlus />
       </button>
-    </>
+    </OnlyForAdmin>
   );
 }
 

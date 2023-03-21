@@ -1,4 +1,5 @@
 /* eslint-disable no-underscore-dangle */
+import OnlyForAuth from '@/components/routesControllers/OnlyForAuth';
 import { IYear } from '@/models/Year';
 import axios from 'axios';
 import { useFormik } from 'formik';
@@ -56,61 +57,63 @@ function NewDocument() {
   });
 
   return (
-    <div className="flex flex-col items-center">
-      <div className="text-2xl">Створення нового документа</div>
-      <form className="mt-5 flex flex-col gap-3" onSubmit={form.handleSubmit}>
-        <label
-          htmlFor="title"
-          className="flex flex-row gap-3 items-center justify-between"
-        >
-          Назва:
-          <input
-            className="bg-gray-100 border border-gray-400 rounded-lg px-3 py-2"
-            id="title"
-            required
-            value={form.values.title}
-            onChange={form.handleChange}
-          />
-        </label>
-        <label
-          htmlFor="title"
-          className="flex flex-row gap-3 items-center justify-between"
-        >
-          Рік:
-          <select
-            id="year"
-            className="bg-gray-100 border border-gray-400 rounded-lg px-3 py-2"
-            required
-            value={form.values.year}
-            onChange={form.handleChange}
+    <OnlyForAuth>
+      <div className="flex flex-col items-center">
+        <div className="text-2xl">Створення нового документа</div>
+        <form className="mt-5 flex flex-col gap-3" onSubmit={form.handleSubmit}>
+          <label
+            htmlFor="title"
+            className="flex flex-row gap-3 items-center justify-between"
           >
-            <option value="">...</option>
-            {years.map((e) => (
-              <option key={e._id} value={e._id}>
-                {e.title}
-              </option>
-            ))}
-          </select>
-        </label>
-        <div className="flex flex-row gap-3 justify-between">
-          <button
-            className="bg-red hover:bg-orange disabled:bg-gray-200 px-3 py-2 rounded-lg"
-            type="button"
-            disabled={isLoading}
-            onClick={() => Router.push('/')}
+            Назва:
+            <input
+              className="bg-gray-100 border border-gray-400 rounded-lg px-3 py-2"
+              id="title"
+              required
+              value={form.values.title}
+              onChange={form.handleChange}
+            />
+          </label>
+          <label
+            htmlFor="title"
+            className="flex flex-row gap-3 items-center justify-between"
           >
-            Скасувати
-          </button>
-          <button
-            className="bg-primary-100 hover:bg-primary-150 disabled:bg-gray-200 px-3 py-2 rounded-lg"
-            type="submit"
-            disabled={isLoading}
-          >
-            Створити
-          </button>
-        </div>
-      </form>
-    </div>
+            Рік:
+            <select
+              id="year"
+              className="bg-gray-100 border border-gray-400 rounded-lg px-3 py-2"
+              required
+              value={form.values.year}
+              onChange={form.handleChange}
+            >
+              <option value="">...</option>
+              {years.map((e) => (
+                <option key={e._id} value={e._id}>
+                  {e.title}
+                </option>
+              ))}
+            </select>
+          </label>
+          <div className="flex flex-row gap-3 justify-between">
+            <button
+              className="bg-red hover:bg-orange disabled:bg-gray-200 px-3 py-2 rounded-lg"
+              type="button"
+              disabled={isLoading}
+              onClick={() => Router.push('/')}
+            >
+              Скасувати
+            </button>
+            <button
+              className="bg-primary-100 hover:bg-primary-150 disabled:bg-gray-200 px-3 py-2 rounded-lg"
+              type="submit"
+              disabled={isLoading}
+            >
+              Створити
+            </button>
+          </div>
+        </form>
+      </div>
+    </OnlyForAuth>
   );
 }
 
