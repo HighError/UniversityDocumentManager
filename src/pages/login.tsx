@@ -6,7 +6,7 @@ import Router from 'next/router';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
 import axios, { AxiosError } from 'axios';
-import AuthFormItem from '@/auth/AuthFormItem';
+import AuthFormItem from '@/components/auth/AuthFormItem';
 import { AiOutlineLock, AiOutlineUser } from 'react-icons/ai';
 import { type } from 'os';
 import { mutate } from 'swr';

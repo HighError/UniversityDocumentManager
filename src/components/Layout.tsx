@@ -25,6 +25,9 @@ function Layout({ children }: IProps) {
             <Link className="hover:text-primary-150 duration-300" href="/years">
               Роки
             </Link>
+            <Link className="hover:text-primary-150 duration-300" href="/users">
+              Користувачі
+            </Link>
           </div>
           <button
             className="bg-primary-100 hover:bg-primary-150 duration-300 px-3 py-2 rounded-lg"
