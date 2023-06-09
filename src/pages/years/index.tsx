@@ -15,7 +15,7 @@ interface IProps {
 
 export async function getServerSideProps() {
   try {
-    const { data } = await axios.get('http://localhost:3000/api/years', {
+    const { data } = await axios.get('https://udm.eviloma.org/api/years', {
       withCredentials: true,
     });
     data.sort((a: IYear, b: IYear) => {
