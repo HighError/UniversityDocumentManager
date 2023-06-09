@@ -43,7 +43,19 @@ export default async function handler(
       await document.save();
       return res.status(200).end();
     }
-    return res.status(405).json('Only GET/POST method allowed!');
+    if (requestMethod === 'DELETE') {
+      const { id } = req.query;
+      if (!id) {
+        return res.status(400).send('Missing params');
+      }
+      if (!mongoose.isValidObjectId(id)) {
+        return res.status(400).send('Invalid ID');
+      }
+
+      await Document.findByIdAndDelete(id);
+      return res.send('ok');
+    }
+    return res.status(405).json('Only GET/POST/DELETE method allowed!');
   } catch (err) {
     return res.status(500).json(err);
   }

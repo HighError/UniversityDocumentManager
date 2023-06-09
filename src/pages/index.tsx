@@ -83,6 +83,7 @@ export default function Home() {
               own={e.user._id === user?._id}
               isLoading={isLoading}
               setIsLoading={setIsLoading}
+              isAdmin={user?.isAdmin ?? false}
             />
           ))}
         </div>

@@ -46,7 +46,7 @@ export default async function handler(
 
       return res.status(200).send('');
     }
-    return res.status(405).json('Only GET/POST/DELETE method allowed!');
+    return res.status(405).json('Only GET/POST method allowed!');
   } catch (err) {
     return res.status(500).json(err);
   }
